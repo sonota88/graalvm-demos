@@ -1,0 +1,20 @@
+FROM neomatrix369/graalvm-demos:java11-21.2.0
+
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+      bzip2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# lib/R_interface/r_libs.R
+RUN R -e "install.packages('rlang')"
+RUN R -e "install.packages('purrr')"
+RUN R -e "install.packages('formula.tools')"
+RUN R -e "install.packages('lobstr')"
+RUN R -e "install.packages('rticles')"
+RUN R -e "install.fastr.packages('data.table')"
+
+# r_requires/ggplot.rb
+RUN R -e "install.packages('ggplot2')"
+RUN R -e "install.packages('grid')"
+RUN R -e "install.packages('gridExtra')"
